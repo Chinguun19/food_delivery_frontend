@@ -44,13 +44,14 @@ const [categories, setCategories] = useState<Category[]>([])
 
     return (
             <div className="h-screen w-screen bg-gray-100 flex">
-                <div className="w-[205px] h-screen bg-white ">
-                    <div>
-                        <img src="Logo.png" className="h-[40px] w-[40px]"></img>
-                        <h1 className="">NomNom</h1>
-                        <h4>Swift delivery</h4>
+                <div className=" flex bg-white w-[205px] h-screen justify-center">
+                    <div className="mt-[40px]  w-[205px]">
+                        <img src="Logo.png" className="h-[40px] w-[40px] absolute left-[20px]"></img>
+                        <h1 className=" text-[18px] font-bold text-center ">NomNom</h1>
+                        <h4 className=" text-[12px] font-normal text-center text-[#71717A]">Swift delivery</h4>
+                        <Button className="mt-[20px] ">Food menu</Button>
+                 
                     </div>
-
 
 
                 </div>
