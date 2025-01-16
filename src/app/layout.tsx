@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter } from "next/font/google";
+import SideBar from "./components/sidebar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,7 +37,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
       >
-        {children}
+  
+       <main>{children}</main>
       </body>
     </html>
   );

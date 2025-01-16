@@ -5,11 +5,13 @@
 
 body {
   font-family: Inter;
+  background-color: #E4E4E7;
+
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: #808080    ;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
