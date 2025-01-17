@@ -33,12 +33,9 @@ const [productList, setProductList] = useState<productList[]>([])
     return (
 
         <div className="flex-2 justify-end bg-white max-h-fit min-h-[400px] w-[2000px] rounded-xl p-6 gap-4 mt-[84px] ml-[210px] flex flex-wrap"> 
-        <h4 className="text-[20px] font-bold w-full">Salads</h4>
-  <div>  </div>
-        <div
-            className="flex flex-col justify-center text-center h-[241px] p-4 w-[270px] mt-[16px] rounded-[20px] text-black bg-white border-[#E4E4E7] border-[1px]">
-        
-          </div>
+        <h4 className="text-[20px] font-bold w-full">Salads (12)</h4>
+        <div className="flex flex-wrap"> 
+      
 
         {productList.map((product) => (
           <div
@@ -46,11 +43,15 @@ const [productList, setProductList] = useState<productList[]>([])
             key={product._id}
           >
             <img src="d.png" className="h-[129px] w-[250px] gap-10 rounded-xl" alt="Product" />
-            <h1 className="text-start">Brie Crostini Appetizer <span className="text-end">$12</span></h1>
-            <h3 className="text-left text-[12px] font-[400]">Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.</h3>
+            <h1 className="flex justify-between items-center mt-[20px]">
+            <span className="text-[#EF4444] text-[14px] font-[500]">Brie Crostini Appetizer</span>
+            <span className=" text-[12px] font-[400]">$12.99</span>
+          </h1>
+            <h3 className="text-left text-[12px] font-[400] mt-[8px]">Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.</h3>
           
           </div>
         ))}
+        </div>
       </div>
       
     )
