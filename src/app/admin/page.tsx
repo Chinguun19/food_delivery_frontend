@@ -12,6 +12,11 @@ import ProductList from "../components/productList"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { CheckIcon } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+
+
+
+
 
 import {
   Dialog,
@@ -101,7 +106,7 @@ function handleChange(e: any) {
                         </div>
                    
                     </aside>
-                    <main className=" flex-col justify-center px-10">
+                    <div className=" flex-col justify-center px-10">
                     <ToastContainer hideProgressBar={true} theme="dark" autoClose={3500} ></ToastContainer>
                     <div className=" bg-white  max-h-fit min-h-[176px] w-screen rounded-xl p-6 gap-4 mt-[84px] ml-[210px] mr-[230px] "> 
                      <h4 className=" text-[20px] font-bold ">Dishes Category</h4>
@@ -110,33 +115,33 @@ function handleChange(e: any) {
                         ))}
 
 
-<Dialog>
-      <DialogTrigger asChild>
-      <Button size="icon" variant="outline" className="h-[36px] w-[36px] py-[8px] px-[16px] rounded-full bg-red-500 ml-4 "><PlusIcon className="text-white"></PlusIcon></Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-white h-[272px] w-[460px]">
-        <DialogHeader>
-          <DialogTitle>Add new category</DialogTitle>
-        </DialogHeader>
-        <div className="flex items-center space-x-2 ">
-          <div className="grid flex-1 gap-2">
-            <h1>Category name</h1>
-            <Input value={value} onChange={handleChange} placeholder="Type category name" id="name"/>
-          </div>
+                         <Dialog>
+                          <DialogTrigger asChild>
+                          <Button size="icon" variant="outline" className="h-[36px] w-[36px] py-[8px] px-[16px] rounded-full bg-red-500 ml-4 "><PlusIcon className="text-white"></PlusIcon></Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md bg-white h-[272px] w-[460px]">
+                            <DialogHeader>
+                              <DialogTitle>Add new category</DialogTitle>
+                            </DialogHeader>
+                            <div className="flex items-center space-x-2 ">
+                              <div className="grid flex-1 gap-2">
+                                <h1>Category name</h1>
+                                <Input value={value} onChange={handleChange} placeholder="Type category name" id="name"/>
+                              </div>
 
-        </div>
-        <DialogFooter className="sm:justify-end">
+                            </div>
+                            <DialogFooter className="sm:justify-end">
 
-          <DialogClose> 
+                              <DialogClose> 
 
-        <div onClick={() => addCategory(value)}>
-        Add Category
-      </div>
-      </DialogClose>
+                            <div onClick={() => addCategory(value)}>
+                            Add Category
+                          </div>
+                          </DialogClose>
 
-        </DialogFooter>
-      </DialogContent>
-       </Dialog>
+                            </DialogFooter>
+                          </DialogContent>
+                          </Dialog>
             
                         </div>
                      
@@ -147,7 +152,7 @@ function handleChange(e: any) {
                     <ProductList></ProductList>
                     <ProductList></ProductList>
 
-                    </main>
+                    </div>
                     </div>
       
 
