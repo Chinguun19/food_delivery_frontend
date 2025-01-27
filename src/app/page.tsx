@@ -6,7 +6,7 @@ import { Categories } from "./(web)/(components)/categories";
 export default function Home() {
 
   return (
-   <main>
+   <main className="bg-[#18181B] h-screen w-screen">
       <img src="bg.png" alt="" />
       <Categories/>
 

@@ -13,8 +13,8 @@ import {
   }) {
     return (
       <ClerkProvider>
-        <html lang="en">
-          <body>
+        <div lang="en">
+          <div>
             
             <SignedOut>
               <SignInButton />
@@ -25,8 +25,8 @@ import {
             <>{children}</>
             </SignedIn>
          
-          </body>
-        </html>
+          </div>
+        </div>
       </ClerkProvider>
     )
   }

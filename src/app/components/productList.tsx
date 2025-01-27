@@ -3,6 +3,16 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 
 
@@ -35,7 +45,34 @@ const [productList, setProductList] = useState<productList[]>([])
         <div className="flex-2 justify-end bg-white max-h-fit min-h-[400px] w-[2000px] rounded-xl p-6 gap-4 mt-[84px] ml-[210px] flex flex-wrap"> 
         <h4 className="text-[20px] font-bold w-full">Salads (12)</h4>
         <div className="flex flex-wrap"> 
-      
+
+        <Dialog>
+          <DialogTrigger asChild> 
+        <div
+            className="flex flex-col justify-center text-center h-[241px] p-4 w-[270px] ml-[20px] mt-[16px] rounded-[20px] text-black bg-white  border-[1px] border-dashed border-[#EF4444]"
+          
+          >
+           
+              <h1>Add new Dish to Salads</h1>
+       
+          
+          </div>
+          </DialogTrigger> 
+          <DialogContent className="bg-white w-[460px] h-[592px] rounded-xl">
+          <DialogTitle>Add new Dish to Appetizers</DialogTitle>
+          <div className="flex items-center space-x-2 ">
+                              <div className="grid flex-1 gap-2">
+                                <h1>Category name</h1>
+                                <input placeholder="Type category name" id="name"/>
+                              </div>
+
+                            </div>
+            
+            
+            
+            
+            </DialogContent>  
+          </Dialog>
 
         {productList.map((product) => (
           <div

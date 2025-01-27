@@ -1,5 +1,7 @@
 "use client"
 
+import { ChevronLeft } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -35,26 +37,26 @@ export function Categories() {
 
 
     return (
-           <div>
+           <div className=" justify-center">
             <h1>Categories</h1>
-            <div>
+            <div className=" flex justify-center">
             <Carousel
-      opts={{
-        align: "start",
-        loop: true
-      }}
-      className=" w-[1000px] "
+            opts={{
+              align: "start",
+              loop: false
+            }}
+      className=" w-fit "
     >
       <CarouselContent className="flex justify-center ">
                 {categories.map((category) => (
-                    <CarouselItem key={category._id} className="lg:basis-1/6 py-9 ml-5">  
-                <Badge key={category._id} className="h-[36px w-fit py-1 px-5 gap-10 rounded-full">{category.categoryName}</Badge>
+                    <CarouselItem key={category._id} className="basis-1/9">  
+                <Badge key={category._id} className="h-[36px w-fit py-1 px-5 gap-10 rounded-full bg-white text-black">{category.categoryName}</Badge>
                 </CarouselItem>
                 ))}
             
                      </CarouselContent>
-                     <CarouselPrevious />
-                     <CarouselNext />
+                     <CarouselPrevious className="bg-white"><ChevronLeft/></CarouselPrevious>
+                     <CarouselNext className="bg-white"><ChevronRight/></CarouselNext>
                    </Carousel>
 
             </div>
