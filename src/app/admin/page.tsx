@@ -122,7 +122,7 @@ function handleChange(e: any) {
                           <DialogContent className="sm:max-w-md bg-white h-[272px] w-[460px]">
                             <DialogHeader>
                               <DialogTitle>Add new category</DialogTitle>
-                        22    </DialogHeader>
+                          </DialogHeader>
                             <div className="flex items-center space-x-2 ">
                               <div className="grid flex-1 gap-2">
                                 <h1>Category name</h1>
@@ -149,8 +149,7 @@ function handleChange(e: any) {
                       
                
                     <ProductList></ProductList>
-                    <ProductList></ProductList>
-                    <ProductList></ProductList>
+           
 
                     </div>
                     </div>
