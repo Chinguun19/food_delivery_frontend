@@ -1,17 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-
-
-
-
-
-
 
 type Product = {
   _id: string;
@@ -27,62 +20,138 @@ type Product = {
 
 export default function UserProductList() {
   const [groupedProducts, setGroupedProducts] = useState<Record<string, Product[]>>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchProduct() {
       try {
+        setLoading(true);
         const res = await fetch("http://localhost:9000/food/");
         if (!res.ok) throw new Error("Failed to fetch products");
         const data: Product[] = await res.json();
 
-        console.log("Fetched Products:", data); // Debugging API response
-
-        // ✅ Group products by category name
+        // Group products by category name
         const grouped = data.reduce((acc: Record<string, Product[]>, product) => {
-          const categoryName = product.category?.categoryName || "Uncategorized"; // Default if category is missing
+          const categoryName = product.category?.categoryName || "Uncategorized";
           acc[categoryName] = acc[categoryName] || [];
           acc[categoryName].push(product);
           return acc;
         }, {});
 
-        console.log("Grouped Products:", grouped); // Debugging grouped categories
-
         setGroupedProducts(grouped);
+        setError(null);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setError("Failed to load menu items. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchProduct();
   }, []);
 
-  return (
-    <div className="flex flex-col justify-center bg-[#404040] min-h-[400px] w-full rounded-xl p-6 gap-4 mt-[84px] ml-[210px]">
-      {Object.entries(groupedProducts).map(([category, products]) => (
-        <div key={category} className="mb-6">
-          <h4 className="text-[20px] font-bold w-[1500px]">{category} ({products.length})</h4>
-          <div className="flex flex-wrap">
-            {/* Add New Dish Dialog */}
-         
 
-            {/* Render Each Product Under Its Category */}
-            {products.map((product) => (
-            <div className="bg-white h-[342px] w-[397px] p-4 gap-7 ml-6 rounded-[20px] mb-8">
-            <div className=" relative">    
-            <img  className="w-[365px] h-[210px]" src="foodimage.png" alt="" />
-            <Button size="lg" className="absolute right-[20px] top-[146px] h-[44px] w-[44px] rounded-full py-[8px] px-[16px] bg-white "><PlusIcon className=" text-[#FD543F]"></PlusIcon></Button>
+  const formatPrice = (price: number) => {
+    return `$${price.toFixed(2)}`;
+  };
+
+  const addToCart = (product: Product) => {
+    console.log("Added to cart:", product);
+  
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="text-xl font-medium text-gray-600">Loading menu items...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="text-xl font-medium text-red-600">{error}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-gray-100 min-h-screen p-6 pt-24">
+      <div className="max-w-7xl mx-auto">
+        {Object.entries(groupedProducts).map(([category, products]) => (
+          <div key={category} className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">{category} ({products.length})</h2>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product) => (
+                <div key={product._id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="relative">
+                    <img
+                      src={product.image}
+                      alt={product.foodName}
+                      className="w-full h-48 object-cover"
+                  
+                    />
+                    <button 
+                      onClick={() => addToCart(product)}
+                      className="absolute right-3 bottom-3 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors"
+                    >
+                      <PlusIcon className="h-5 w-5 text-red-500" />
+                    </button>
                   </div>
-       
-            <h1 className="flex justify-between items-center mt-[20px]">
-                <span className="text-[#FD543F] text-[24px] font-[600]">{product.foodName}</span>
-                <span className=" text-[18px] font-[600]">{product.price}</span>
-            </h1>
-            <h3 className="text-left text-[14px] font-[400] mt-[8px]">{product.ingredients}</h3>         
-        </div>
-            ))}
+                  
+                  <div className="p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-lg font-semibold text-red-500">{product.foodName}</h3>
+                      <span className="font-bold text-gray-800">{formatPrice(product.price)}</span>
+                    </div>
+                    <p className="text-sm text-gray-600 line-clamp-2">{product.ingredients}</p>
+                  </div>
+                </div>
+              ))}
+              
+            
+              {/* <Dialog>
+                <DialogTrigger asChild>
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center h-[300px] cursor-pointer">
+                    <PlusIcon className="h-12 w-12 text-gray-400 mb-2" />
+                    <p className="text-gray-500 font-medium">Add New Item</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Add New Menu Item</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium">Food Name</label>
+                      <Input id="name" placeholder="Enter food name" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="ingredients" className="text-sm font-medium">Ingredients</label>
+                      <Input id="ingredients" placeholder="List main ingredients" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="price" className="text-sm font-medium">Price</label>
+                      <Input id="price" type="number" placeholder="0.00" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="image" className="text-sm font-medium">Image URL</label>
+                      <Input id="image" placeholder="Enter image URL" />
+                    </div>
+                    <Button type="submit" className="bg-red-500 hover:bg-red-600">
+                      Add Item
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog> */}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
